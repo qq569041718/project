@@ -1,0 +1,22 @@
+https://mall.qq.com/cf/
+
+写项目思路：
+	1.搭建静态页
+
+	2.新建require.config.js配置需要使用的libs里面的各类插件，以及js里面的module里面的需要复用的js文件（如
+header.js；footer.js；以及自己创建的假数据url.js)。
+
+	3.复用文件的CSS也要放在CSS里面的module里面，HTML同理。
+
+	4.在index.html里面引入<link rel="stylesheet" href="/css/index.css">以及插件css文件；
+	  在index.html里面引入<script src="/lib/requirejs/require.js" data-main="/js/index"></script>唯一js文件。
+	
+	5.在index.scss里面引入@import "module/header.scss";
+	  		      @import "module/footer.scss";
+	  并且里面只写主体main部分的样式
+
+	6.各自的JS处理各自的逻辑。但要注意渲染属于异步。对于异步元素的获取可以采用事件委托的方法。
+
+	7.需要复用的js属于模块用define定义模块，而其他页面的js属于业务逻辑就用require引用（
+	  先用require(['require.config'], () => { 
+		再用require(['url', 'header'], (url) => { } }）引入config里面具体需要用到的短名称
